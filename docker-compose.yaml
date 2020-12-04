@@ -1,0 +1,23 @@
+version: "3.1"
+services:
+  my-web1:
+    build: ./MyWeb1
+    networks:
+      - my-network
+  my-web2:
+    build: ./MyWeb2
+    networks:
+      - my-network
+  my-nginx:
+    image: nginx:latest
+    environment:
+      - NGINX_PORT=80
+    ports: 
+      - 8000:80
+    networks:
+      - my-network
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  my-network:
